@@ -1,0 +1,19 @@
+inherit_from: .rubocop_todo.yml
+AllCops:
+        Exclude:
+                - "Guardfile"
+                - "db/migrate/*"
+                - "db/schema.rb"
+
+Style/SpaceBeforeFirstArg:
+        Enabled: false
+
+Style/EmptyLinesAroundModuleBody:
+        Enabled: false
+
+Style/EmptyLinesAroundBlockBody:
+        Enabled: false
+
+Style/EmptyLinesAroundClassBody:
+        Enabled: false
+
