@@ -1,3 +1,10 @@
+## overview
+
+users can add trading ideas and tie to instruments, and where helpful timeframes. they can then update that idea
+
+users can, based on a context determined in search bar, view a chronological, set of notes and ideas, or focus on an a particular idea. These can be thought of as views, and each view docked as a seperate 'tab'
+
+
 Application Name Overview
 ==============================================
 
