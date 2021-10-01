@@ -1,0 +1,9 @@
+<tr>
+  <td><%= note.body %></td>
+  <td><%= note.instrument.symbol %></td>
+  <td><%= note.timestamp %></td>
+  <td><%= link_to 'Show', note %></td>
+  <td><%= link_to 'Edit', edit_note_path(@instrument,note) %></td>
+  <td><%= link_to 'Destroy', note, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+</tr>
+

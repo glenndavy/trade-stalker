@@ -3,10 +3,6 @@
 Lint/AssignmentInCondition:
   Enabled: false
 
-# Offense count: 2
-Lint/HandleExceptions:
-  Enabled: false
-
 # Offense count: 31
 # Configuration parameters: AllowURI, URISchemes.
 Metrics/LineLength:

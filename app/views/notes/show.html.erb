@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Body:</strong>
+  <%= @note.body %>
+</p>
+
+<p>
+  <strong>Instrument:</strong>
+  <%= @note.instrument_id %>
+</p>
+
+<p>
+  <strong>Timestamp:</strong>
+  <%= @note.timestamp %>
+</p>
+
+<p>
+  <strong>Timestamps:</strong>
+  <%= @note.timestamps %>
+</p>
+
+<%= link_to 'Edit', edit_note_path(@note) %> |
+<%= link_to 'Back', notes_path %>
