@@ -1,43 +1,64 @@
-with (import <nixpkgs> {});
+{ pkgs ? import <nixpkgs> { } }:
 
 let
-  rubyenv = bundlerEnv {
-    name = "rb";
-    # Setup for ruby gems using bundix generated gemset.nix
-    inherit ruby;
-    gemfile = ./Gemfile;
-    lockfile = ./Gemfile.lock;
-    gemset = ./gemset.nix;
-    # Bundler groups available in this environment
-    groups = ["default" "development" "test"];
-  };
-in stdenv.mkDerivation {
+  ruby = pkgs.ruby_3_0;
+  pkgsIntelize = (pkgs: import <nixpkgs> {
+    system = "x86_64-darwin";
+  });
+
+  intelPkgs = pkgsIntelize pkgs;
+
+in pkgs.stdenv.mkDerivation {
   name = "trade-stalker";
   version = "0.0.1";
+  sourceRoot = ".";
+  outPath = ./.;
+  src = pkgs.fetchFromGitHub {
+    owner = "glenndavy";
+    repo = "trade-stalker";
+    rev = "master";
+    sha256 = "0vb7ikjscrp2rw0dfw6pilxqpjm50l5qg2x2mn1vfh93dkl2aan7";
+  };
 
   buildInputs = [
-    stdenv
-    git
-    elmPackages.elm
+    pkgs.stdenv
+    pkgs.git
     # Ruby deps
+    
     ruby
-    bundler
-    bundix
+    pkgs.bundler
 
     # Rails deps
-    clang
-    libxml2
-    libxslt
-    readline
-    postgresql_13
-    openssl
+    pkgs.clang
+    pkgs.libxml2
+    pkgs.libxslt
+    pkgs.readline
+    pkgs.postgresql_13
+    pkgs.openssl
+    pkgs.nodejs
+    pkgs.yarn
 
-    rubyenv
   ];
 
   shellHook = ''
     export LIBXML2_DIR=${pkgs.libxml2}
     export LIBXSLT_DIR=${pkgs.libxslt}
+    export DATABASE_URL="postgresql://localhost:5432/trade_stalker_development"
+  '';
+
+  unpackPhase = ''
+  #mkdir $out
+  cp -r $src $out/
+  '';
+
+  buildPhase = ''
+  export HOME=$PWD
+  cd $out
+  echo $PWD
+  ls -l
+  bash
+  bundle install 
+  bundle exec rake assets precompile
   '';
 }
 
