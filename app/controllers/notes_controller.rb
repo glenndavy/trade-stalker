@@ -22,8 +22,8 @@ class NotesController < ApplicationController
 
   # POST /notes or /notes.json
   def create
-    @note = instrument.notes.new
-
+    @note = instrument.notes.new(note_params)
+    
     respond_to do |format|
       if @note.save
         format.html { redirect_to instrument, notice: "Note was successfully created." }
@@ -76,4 +76,6 @@ class NotesController < ApplicationController
         params.permit(:id, :body, :instrument_id, :timestamp, :timestamps)
       end
     end
+
+   
 end

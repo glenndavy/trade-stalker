@@ -39,6 +39,9 @@ in pkgs.stdenv.mkDerivation {
     pkgs.readline
     pkgs.postgresql_13
     pkgs.openssl
+    pkgs.nodejs
+    pkgs.yarn
+   
 
     rubyenv
   ];
@@ -46,6 +49,7 @@ in pkgs.stdenv.mkDerivation {
   shellHook = ''
     export LIBXML2_DIR=${pkgs.libxml2}
     export LIBXSLT_DIR=${pkgs.libxslt}
+    export DATABASE_URL="postgresql://localhost:5432/trade_stalker_development"
   '';
 }
 

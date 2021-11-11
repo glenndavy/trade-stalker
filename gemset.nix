@@ -1374,6 +1374,16 @@
     };
     version = "4.1.0";
   };
+  webconsole = {
+    groups = ["default"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "1ydx8ydrr6426p18h478vc83api5dd6qbgvdjnjxlyfgfms3679l";
+      type = "gem";
+    };
+    version = "0.0.2";
+  };
   webdrivers = {
     dependencies = ["nokogiri" "rubyzip" "selenium-webdriver"];
     groups = ["test"];

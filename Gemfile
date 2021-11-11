@@ -80,3 +80,5 @@ end
 
 gem "tailwindcss-rails", "~> 0.5.1"
 
+
+gem "webconsole", "~> 0.0.2"
