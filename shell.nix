@@ -18,7 +18,9 @@ let
 
      intelPkgs = pkgsIntelize pkgs;
 
-in pkgs.stdenv.mkDerivation {
+#in pkgs.stdenv.mkDerivation {
+
+in pkgs.mkShell {
   name = "trade-stalker";
   version = "0.0.1";
 
@@ -27,7 +29,7 @@ in pkgs.stdenv.mkDerivation {
     pkgs.git
     intelPkgs.elmPackages.elm
     # Ruby deps
-    
+    pkgs.neovim    
     ruby
     pkgs.bundler
     pkgs.bundix
@@ -45,11 +47,44 @@ in pkgs.stdenv.mkDerivation {
 
     rubyenv
   ];
+  baseInputs = [
+    pkgs.stdenv
+    pkgs.git
+    intelPkgs.elmPackages.elm
+    # Ruby deps
+    pkgs.neovim    
+    
+    ruby
+    pkgs.bundler
+    pkgs.bundix
+
+    # Rails deps
+    pkgs.clang
+    pkgs.libxml2
+    pkgs.libxslt
+    pkgs.readline
+    pkgs.postgresql_13
+    pkgs.openssl
+    pkgs.nodejs
+    pkgs.yarn
+     
+
+    rubyenv
+  ];
 
   shellHook = ''
+    export SOMETHING=nothing
+  '';
+
+  setup  = ''
+    unset PATH
     export LIBXML2_DIR=${pkgs.libxml2}
     export LIBXSLT_DIR=${pkgs.libxslt}
     export DATABASE_URL="postgresql://localhost:5432/trade_stalker_development"
+    for p in $baseInputs; do
+      export PATH=$p/bin${PATH:+:}$PATH
+    done
   '';
+  
 }
 
