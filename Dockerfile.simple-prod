@@ -1,0 +1,24 @@
+FROM ruby:3.0.4
+
+RUN mkdir -p /app
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y nodejs postgresql-client sqlite3 vim --no-install-recommends && rm -rf /var/lib/apt/lists/*
+
+ARG DATABASE_URL=$DATABASE_URL
+
+ENV RAILS_ENV production
+ENV RAILS_SERVE_STATIC_FILES true
+ENV RAILS_LOG_TO_STDOUT true
+
+COPY Gemfile /app
+COPY Gemfile.lock /app
+RUN bundle config  set --local  path vendor/bundle
+RUN bundle config  set  --local cache vendor/cache
+RUN bundle install --without development test
+
+COPY . /app
+RUN bundle exec rake assets:precompile
+
+EXPOSE 3000
+CMD ['rails', 'server', '-b', '0.0.0.0']
